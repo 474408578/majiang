@@ -2,7 +2,10 @@ package com.xschen.community.majinag.controller;
 
 import com.xschen.community.majinag.dto.AccessTokenDTO;
 import com.xschen.community.majinag.dto.GithubUser;
+import com.xschen.community.majinag.mapper.UserMapper;
+import com.xschen.community.majinag.model.User;
 import com.xschen.community.majinag.provider.GithubProvider;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -10,11 +13,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.UUID;
 
 @Controller
 public class AuthorizeController {
     @Autowired
     private GithubProvider githubProvider;
+
+    @Autowired
+    private UserMapper userMapper;
+
 
     @Value("${github.client.id}")
     private String clientId;
@@ -43,6 +51,15 @@ public class AuthorizeController {
         String accessToken = githubProvider.getAccessToken(accessTokenDTO);
         GithubUser githubUser = githubProvider.getUser(accessToken);
         if (githubUser != null){
+            User user = new User();
+            user.setAccountId(String.valueOf(githubUser.getId()));
+            user.setName(githubUser.getName());
+            user.setToken(UUID.randomUUID().toString());
+            user.setGmtCreate(System.currentTimeMillis());
+            user.setGmtModified(user.getGmtCreate());
+            userMapper.insert(user);
+
+
             // 登录成功，写入session和cookie
             request.getSession().setAttribute("user", githubUser);
             return "redirect:/";
