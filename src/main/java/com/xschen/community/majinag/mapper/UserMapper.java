@@ -14,4 +14,6 @@ public interface UserMapper {
     @Select("select * from user where token=#{token}")
     User findByToken(@Param("token") String token);//不是类的时候使用@Param将token的值赋给SQL语句的token
 
+    @Select("select * from user where id=#{id}")
+    User findById(@Param("id") Integer id);
 }

@@ -12,7 +12,16 @@ body {
     margin-bottom: 15px;
 }
 
+.media-object {
+    width: 30px;
+    height: 30px;
+}
 
+.text-desc {
+    font-size: 12px;
+    font-weight: normal;
+    color: #999;
+}
 
 
 
