@@ -26,6 +26,7 @@ public class PublishController {
         return "publish";
     }
 
+
     @PostMapping("/publish")
     public String doPublish(
             @Param("title") String title,

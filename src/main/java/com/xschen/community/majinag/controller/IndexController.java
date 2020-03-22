@@ -1,5 +1,6 @@
 package com.xschen.community.majinag.controller;
 
+import com.xschen.community.majinag.dto.PaginationDTO;
 import com.xschen.community.majinag.dto.QuestionDTO;
 import com.xschen.community.majinag.mapper.UserMapper;
 import com.xschen.community.majinag.model.User;
@@ -29,9 +30,18 @@ public class IndexController {
     @Autowired
     private QuestionService questionService;
 
+    /**
+     * @param request
+     * @param model
+     * @param page 当前的页数
+     * @param size 每一页内有多少条数据
+     * @return
+     */
     @GetMapping("/")
     public String index(HttpServletRequest request,
-                        Model model) {
+                        Model model,
+                        @RequestParam(name = "page", defaultValue = "1") Integer page,
+                        @RequestParam(name = "size", defaultValue = "8") Integer size) {
         Cookie[] cookies = request.getCookies();
 //        防止空指针异常
         if (cookies != null){
@@ -46,9 +56,9 @@ public class IndexController {
                 }
             }
         }
-
-        List<QuestionDTO> questionDTOS = questionService.list();
-        model.addAttribute("questions", questionDTOS);
+        // 将页码的参数传入到service的list方法中
+        PaginationDTO pagination = questionService.list(page, size);
+        model.addAttribute("pagination", pagination);
         return "index";
     }
 }
