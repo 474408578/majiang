@@ -1,14 +1,12 @@
 package com.xschen.community.majinag.mapper;
 
 import com.xschen.community.majinag.model.User;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 @Mapper
 public interface UserMapper {
     @Insert("insert into user(account_id, name, token, avatar_url, gmt_create, gmt_modified) values (#{accountId}, #{name}, #{token}, #{avatarUrl}, #{gmtCreate}, #{gmtModified})")
+    @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
     void insert(User user);
 
     @Select("select * from user where token=#{token}")

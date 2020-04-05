@@ -41,10 +41,10 @@ public class IndexController {
     public String index(HttpServletRequest request,
                         Model model,
                         @RequestParam(name = "page", defaultValue = "1") Integer page,
-                        @RequestParam(name = "size", defaultValue = "8") Integer size) {
+                        @RequestParam(name = "size", defaultValue = "2") Integer size) {
         Cookie[] cookies = request.getCookies();
 //        防止空指针异常
-        if (cookies != null){
+        if (cookies != null && cookies.length !=0){
             for (Cookie cookie: cookies) {
                 if (cookie.getName() == "token") {
                     String value = cookie.getValue();

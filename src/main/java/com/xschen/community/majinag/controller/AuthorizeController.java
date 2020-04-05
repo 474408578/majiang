@@ -67,6 +67,7 @@ public class AuthorizeController {
             response.addCookie(new Cookie("token", token));
             // 登录成功，写入session和cookie
             request.getSession().setAttribute("user", user);
+            System.out.println("Authorize user: " + user);
             return "redirect:/";
         } else {
             // 登录失败, 重新登录

@@ -62,9 +62,10 @@ public class PublishController {
             model.addAttribute("error", "用户未登录");
             return "publish";
         }
+        System.out.println("user: " + user);
 
         question.setCreator(user.getId());
-        System.out.println(user.getId());
+        System.out.println("userId: " + user.getId());
         question.setTitle(title);
         question.setDescription(description);
         question.setTag(tag);

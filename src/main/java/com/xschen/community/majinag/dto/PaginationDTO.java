@@ -20,21 +20,12 @@ public class PaginationDTO {
     private Integer totalPage;
 
     /**
-     *
      * @param totalCount 总行数
      * @param page 第几页
      * @param size 每页多少条
      */
-    public void setPagination(Integer totalCount, Integer page, Integer size) {
-        totalPage = ((totalCount % size) == 0) ? (totalCount / size) : (totalCount / size + 1);
-        // 保证page传入的正确性
-        if (page < 1) {
-            page = 1;
-        }
-        if (page > totalPage) {
-            page = totalPage;
-        }
-
+    public void setPagination(Integer totalPage, Integer page) {
+        this.totalPage = totalPage;
         this.currentPage = page;
 
         pages.add(page);
@@ -60,7 +51,5 @@ public class PaginationDTO {
 
         // 是否显示最后一页
         showEnd = pages.contains(totalPage) ? false : true;
-
-
     }
 }
