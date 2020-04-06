@@ -63,7 +63,7 @@ public class AuthorizeController {
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate());
             userMapper.insert(user);
-
+            // 增加一个键为token的cookie
             response.addCookie(new Cookie("token", token));
             // 登录成功，写入session和cookie
             request.getSession().setAttribute("user", user);
