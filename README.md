@@ -40,3 +40,4 @@ CTRL + TAB   切换到上一次的窗口
 [Mybatis自增长id处理](https://www.cnblogs.com/hongdada/p/9956992.html)
 
 
+[IntelliJ IDEA HTML文件变成了文本文件解决办法](https://liuyanzhao.com/7839.html)
